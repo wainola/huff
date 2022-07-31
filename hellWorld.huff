@@ -1,0 +1,22 @@
+#define macro MAIN() = takes(0) returns(0) {
+    // Store string "Hello, world" in memory at 0x40
+    // 0x2d is listed as mstore pads the value
+    0x48656c6c6f2c20776f726c6421        // ["Hello, world!"]
+    0x2d                                // [0x2d, "Hello, world!"]
+    mstore                              // []
+
+    // store length of string at 0x20
+    0x0d                                // [0x0d]
+    0x20                                // [0x20, 0x0d]
+    mstore                              // []
+    
+    // store dynamic offset at 0x00 (string encoding starts at 0x20)
+    0x20                                // [0x20]
+    0x00                                // [0x00, 0x20]
+    mstore                              // []
+
+    // return full 96 byte value
+    0x60                                // [0x60]
+    0x00                                // [0x00, 0x60]
+    return                              // []
+}
